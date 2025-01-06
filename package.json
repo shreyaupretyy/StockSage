@@ -1,0 +1,22 @@
+{
+  "name": "stocksage",
+  "version": "1.0.0",
+  "description": "StockSage is a web application for stock prediction and portfolio management. \r - **Frontend**: React\r - **Backend**: Flask\r - **Machine Learning**: Jupyter Notebook / Google Colab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  }
+}
