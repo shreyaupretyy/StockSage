@@ -29,6 +29,18 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108581"
         },
         {
+            "title": "NEPSE Adjusts Stock Price of Citizen Investment Trust",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109244"
+        },
+        {
+            "title": "NIC Asia Laghubitta to Skip Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109209"
+        },
+        {
+            "title": "Last day to secure dividend of Citizen Investment Trust",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109203"
+        },
+        {
             "title": "Kumari Bank\u00c2\u00a0to Skip Dividend",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109164"
         },
@@ -45,16 +57,8 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108957"
         },
         {
-            "title": "NEPSE adjusts stock price of two companies",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108918"
-        },
-        {
-            "title": "Last day to apply for  Garima Samriddhi Yojana",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108870"
-        },
-        {
-            "title": "SEBON Approves Right Issue of Neco Insurance",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108854"
+            "title": "Samsung launches 2 new Large Capacity Bespoke AITM Washing Machines in Nepal",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109222"
         },
         {
             "title": "Hetauda Wheels Collaborates with Hyundai\u00e2\u0080\u0099s Happy Move for CSR Initiative at Blessed Children\u00e2\u0080\u0099s Home, Hetauda",
@@ -75,13 +79,21 @@
         {
             "title": "Laxmi Sunrise Bank and IFC Partner to Address Financial Abuse in Nepal",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108770"
-        },
-        {
-            "title": "Hyundai SANTA FE named 2025 Car of the Year",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108150"
         }
     ],
     "company": [
+        {
+            "title": "NEPSE Adjusts Stock Price of Citizen Investment Trust",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109244"
+        },
+        {
+            "title": "NIC Asia Laghubitta to Skip Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109209"
+        },
+        {
+            "title": "Last day to secure dividend of Citizen Investment Trust",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109203"
+        },
         {
             "title": "Kumari Bank\u00c2\u00a0to Skip Dividend",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109164"
@@ -97,18 +109,6 @@
         {
             "title": "Last day to secure dividend of seven companies",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108957"
-        },
-        {
-            "title": "NEPSE adjusts stock price of two companies",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108918"
-        },
-        {
-            "title": "Last day to apply for  Garima Samriddhi Yojana",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108870"
-        },
-        {
-            "title": "SEBON Approves Right Issue of Neco Insurance",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108854"
         }
     ],
     "market": [
@@ -143,6 +143,10 @@
     ],
     "corporate": [
         {
+            "title": "Samsung launches 2 new Large Capacity Bespoke AITM Washing Machines in Nepal",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109222"
+        },
+        {
             "title": "Hetauda Wheels Collaborates with Hyundai\u00e2\u0080\u0099s Happy Move for CSR Initiative at Blessed Children\u00e2\u0080\u0099s Home, Hetauda",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109138"
         },
@@ -161,10 +165,6 @@
         {
             "title": "Laxmi Sunrise Bank and IFC Partner to Address Financial Abuse in Nepal",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108770"
-        },
-        {
-            "title": "Hyundai SANTA FE named 2025 Car of the Year",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108150"
         }
     ]
 }
