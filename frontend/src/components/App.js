@@ -8,6 +8,8 @@ import '../App.css';
 import NewsSection from "./NewsSection";
 import CategoryPage from "./CategoryPage";
 import Footer from "./Footer";
+import LoginPage from "./LoginPage"
+import SignupPage from "./SignupPage";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route index element={<Navigate to="/news/all" replace />} />
             <Route path=":category" element={<CategoryPage />} /> {/* This will match /news/:category */}
           </Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </Router>
       <Footer/>

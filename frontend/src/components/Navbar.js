@@ -34,10 +34,10 @@ const Navbar = () => {
                 className="px-3 py-1 rounded-full bg-navy text-white outline outline-2 outline-white"
                 />
                 <button className="bg-beige text-black px-4 py-1 rounded-full hover:bg-teal hover:text-white">
-                    Login
+                    <Link to='/login'>Login</Link>
                 </button>
                 <button className="bg-beige text-black px-4 py-1 rounded-full hover:bg-teal hover:text-white">
-                    Sign Up
+                    <Link to='/signup'>Sign Up</Link>
                 </button>
 
             </div>
