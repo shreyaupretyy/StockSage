@@ -1,6 +1,5 @@
 {
-    "all": [
-        {
+    "all": [{
             "title": "NEPSE Adjusts Stock Price of Seven Companies",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109150"
         },
@@ -29,6 +28,18 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108581"
         },
         {
+            "title": "NMB Bank concludes its 29th AGM",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109419"
+        },
+        {
+            "title": "Mahila Laghubitta to Skip Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109403"
+        },
+        {
+            "title": "Samata Gharelu Laghubitta Announces Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109366"
+        },
+        {
             "title": "NEPSE Adjusts Stock Price of Citizen Investment Trust",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109244"
         },
@@ -45,16 +56,8 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109164"
         },
         {
-            "title": "Mahuli Laghubitta allots FPO",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109162"
-        },
-        {
-            "title": "Last day to secure dividend of six companies",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109021"
-        },
-        {
-            "title": "Last day to secure dividend of seven companies",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108957"
+            "title": "Nepalese Young Entrepreneurs Forum (NYEF) Kathmandu Chapter Hosts Global IME Bank Presents NYEF Startup Awards 4.0",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109468"
         },
         {
             "title": "Samsung launches 2 new Large Capacity Bespoke AITM Washing Machines in Nepal",
@@ -75,13 +78,20 @@
         {
             "title": "Meet the Sharks of Shark Tank Nepal",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108787"
-        },
-        {
-            "title": "Laxmi Sunrise Bank and IFC Partner to Address Financial Abuse in Nepal",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108770"
         }
     ],
-    "company": [
+    "company": [{
+            "title": "NMB Bank concludes its 29th AGM",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109419"
+        },
+        {
+            "title": "Mahila Laghubitta to Skip Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109403"
+        },
+        {
+            "title": "Samata Gharelu Laghubitta Announces Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109366"
+        },
         {
             "title": "NEPSE Adjusts Stock Price of Citizen Investment Trust",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109244"
@@ -97,22 +107,9 @@
         {
             "title": "Kumari Bank\u00c2\u00a0to Skip Dividend",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109164"
-        },
-        {
-            "title": "Mahuli Laghubitta allots FPO",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109162"
-        },
-        {
-            "title": "Last day to secure dividend of six companies",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109021"
-        },
-        {
-            "title": "Last day to secure dividend of seven companies",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108957"
         }
     ],
-    "market": [
-        {
+    "market": [{
             "title": "NEPSE Adjusts Stock Price of Seven Companies",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109150"
         },
@@ -141,7 +138,10 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108581"
         }
     ],
-    "corporate": [
+    "corporate": [{
+            "title": "Nepalese Young Entrepreneurs Forum (NYEF) Kathmandu Chapter Hosts Global IME Bank Presents NYEF Startup Awards 4.0",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109468"
+        },
         {
             "title": "Samsung launches 2 new Large Capacity Bespoke AITM Washing Machines in Nepal",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109222"
@@ -161,10 +161,6 @@
         {
             "title": "Meet the Sharks of Shark Tank Nepal",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108787"
-        },
-        {
-            "title": "Laxmi Sunrise Bank and IFC Partner to Address Financial Abuse in Nepal",
-            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108770"
         }
     ]
 }

@@ -12,7 +12,7 @@ CORS(app, supports_credentials=True)
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/stocksage_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = 'root$$$123'  # Change this!
+app.config['JWT_SECRET_KEY'] = 'abcde'  # Change this!
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 
 db = SQLAlchemy(app)
