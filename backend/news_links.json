@@ -1,6 +1,5 @@
 {
-    "all": [
-        {
+    "all": [{
             "title": "NEPSE Adjusts Stock Price of Seven Companies",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109150"
         },
@@ -81,7 +80,18 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108787"
         }
     ],
-    "company": [
+    "company": [{
+            "title": "NMB Bank concludes its 29th AGM",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109419"
+        },
+        {
+            "title": "Mahila Laghubitta to Skip Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109403"
+        },
+        {
+            "title": "Samata Gharelu Laghubitta Announces Dividend",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109366"
+        },
         {
             "title": "NMB Bank concludes its 29th AGM",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109419"
@@ -111,8 +121,7 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109164"
         }
     ],
-    "market": [
-        {
+    "market": [{
             "title": "NEPSE Adjusts Stock Price of Seven Companies",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109150"
         },
@@ -141,7 +150,10 @@
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=108581"
         }
     ],
-    "corporate": [
+    "corporate": [{
+            "title": "Nepalese Young Entrepreneurs Forum (NYEF) Kathmandu Chapter Hosts Global IME Bank Presents NYEF Startup Awards 4.0",
+            "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109468"
+        },
         {
             "title": "Nepalese Young Entrepreneurs Forum (NYEF) Kathmandu Chapter Hosts Global IME Bank Presents NYEF Startup Awards 4.0",
             "url": "https://eng.merolagani.com/NewsDetail.aspx?newsID=109468"

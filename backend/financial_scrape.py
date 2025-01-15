@@ -7,6 +7,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+
 import time
 
 def scrape_sharesansar():
@@ -27,18 +29,17 @@ def scrape_sharesansar():
         time.sleep(5)
         
         # Click the news tab
-        news_tab = driver.find_element(By.CSS_SELECTOR, "a[href='#cnews']")
+        news_tab = driver.find_element(By.CSS_SELECTOR, "a[href='#cfinanrep']")
         driver.execute_script("arguments[0].click();", news_tab)
         time.sleep(3)
         
         # Wait for the DataTable to be fully loaded
         wait = WebDriverWait(driver, 10)
-        table = wait.until(EC.presence_of_element_located((By.ID, "myTableCNews")))
+        table = wait.until(EC.presence_of_element_located((By.ID, "myTableCFinanRep")))
         
         # Open CSV file for writing
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        csv_filename = f'sharesansar_news_{timestamp}.csv'
-        excel_filename = f'sharesansar_news_{timestamp}.xlsx'
+        csv_filename = f'sharesansar_financial_reports.csv'
         
         with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -49,7 +50,7 @@ def scrape_sharesansar():
             while True:
                 # Wait for rows to be present on the current page
                 rows = wait.until(EC.presence_of_all_elements_located(
-                    (By.CSS_SELECTOR, "#myTableCNews tbody tr")
+                    (By.CSS_SELECTOR, "#myTableCFinanRep tbody tr")
                 ))
                 
                 print(f"\nScraping page {page_number}")
@@ -82,7 +83,7 @@ def scrape_sharesansar():
 
                 # Check for the "Next" button for pagination
                 try:
-                    next_button = driver.find_element(By.CSS_SELECTOR, "#myTableCNews_next")
+                    next_button = driver.find_element(By.CSS_SELECTOR, "#myTableCFinanRep_next")
                     if "disabled" not in next_button.get_attribute('class'):
                         next_button.click()
                         time.sleep(3)  # Adjust this sleep time if needed
@@ -97,31 +98,8 @@ def scrape_sharesansar():
         df = pd.read_csv(csv_filename)
         
         # Create Excel writer
-        with pd.ExcelWriter(excel_filename, engine='xlsxwriter') as writer:
-            df.to_excel(writer, sheet_name='News', index=False)
-            
-            # Get workbook and worksheet objects
-            workbook = writer.book
-            worksheet = writer.sheets['News']
-            
-            # Add formatting
-            header_format = workbook.add_format({
-                'bold': True,
-                'bg_color': '#D3D3D3',
-                'border': 1
-            })
-            
-            # Format header row
-            for col_num, value in enumerate(df.columns.values):
-                worksheet.write(0, col_num, value, header_format)
-            
-            # Adjust column widths
-            worksheet.set_column('A:A', 15)  # Date
-            worksheet.set_column('B:B', 50)  # Title
-            worksheet.set_column('C:C', 30)  # URL
 
         print(f"\nData exported to CSV: {csv_filename}")
-        print(f"Data exported to Excel: {excel_filename}")
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
