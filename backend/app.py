@@ -86,7 +86,7 @@ def login():
 
 # Existing news API with JWT protection
 @app.route('/api/news', methods=['GET'])
-@jwt_required()  # This makes the route protected
+# @jwt_required()  # This makes the route protected
 def get_news():
     with open('news_links.json', 'r') as f:
         news_data = json.load(f)
@@ -103,7 +103,7 @@ def get_news():
 
 # Market summary API with JWT protection
 @app.route('/api/market-summary', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_market_summary():
     try:
         with open('market-summary-1.json', 'r') as f:
