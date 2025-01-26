@@ -18,7 +18,7 @@ const Navbar = () => {
                 <li className="hover:text-teal"><Link to='/about'>About</Link></li>
                 <li className="hover:text-teal"><Link to='/news'>News</Link></li>
                 <li className="hover:text-teal"><Link to='/'>Listed Stocks</Link></li>
-                <li className="hover:text-teal"><Link to='/'>Prediction</Link></li>
+                <li className="hover:text-teal"><Link to='/prediction'>Prediction</Link></li>
             </ul>
 
             <div className="flex items-center space-x-4">

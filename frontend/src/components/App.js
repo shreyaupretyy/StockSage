@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './Home';
 import About from './About';
 import Navbar from "./Navbar";
+import Prediction from "./Prediction"; // Add this import
 
 import '../App.css';
 import NewsSection from "./NewsSection";
@@ -19,11 +20,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/prediction" element={<Prediction />} /> {/* Add this route */}
           
           {/* Define the /news route and handle the redirect to /news/all */}
           <Route path="/news" element={<NewsSection />}>
             <Route index element={<Navigate to="/news/all" replace />} />
-            <Route path=":category" element={<CategoryPage />} /> {/* This will match /news/:category */}
+            <Route path=":category" element={<CategoryPage />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
