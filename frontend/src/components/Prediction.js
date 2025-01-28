@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown'; // 1) Install by running: npm install react-markdown
 
 const Prediction = () => {
   const [selectedSector, setSelectedSector] = useState('');
@@ -10,11 +11,13 @@ const Prediction = () => {
   const [analysis, setAnalysis] = useState('');
   const [hasRequestedAnalysis, setHasRequestedAnalysis] = useState(false);
 
+  // Sectors and scripts for dropdown
   const sectors = {
     'Commercial Bank': ['SCB', 'NABIL'],
     'Development Bank': ['JBBL', 'GBBL']
   };
 
+  // Handler for Gemini AI request
   const handleAskGemini = async () => {
     if (!selectedScript) return;
     
@@ -35,7 +38,7 @@ const Prediction = () => {
         reader.onloadend = () => resolve(reader.result);
       });
 
-      // Send analysis request
+      // Send analysis request to the backend
       const response = await fetch('http://localhost:5000/api/analyze', {
         method: 'POST',
         headers: {
@@ -52,6 +55,7 @@ const Prediction = () => {
       if (!response.ok) throw new Error('Analysis failed');
       
       const data = await response.json();
+      // Store the AI-generated Markdown in "analysis"
       setAnalysis(data.analysis);
     } catch (error) {
       console.error('Error:', error);
@@ -60,13 +64,14 @@ const Prediction = () => {
     setIsLoading(false);
   };
 
-
+  // Handler for sector changes
   const handleSectorChange = (e) => {
     setSelectedSector(e.target.value);
     setSelectedScript('');
     setShowError(false);
   };
 
+  // Handler for "Predict" button
   const handlePredict = () => {
     if (!selectedScript) {
       setShowError(true);
@@ -196,6 +201,7 @@ const Prediction = () => {
             </button>
           </div>
           <div className="p-6">
+            {/* If user hasn't requested analysis yet */}
             {!hasRequestedAnalysis ? (
               <div className="text-center">
                 <p className="text-gray-700 mb-4">
@@ -212,16 +218,16 @@ const Prediction = () => {
               </div>
             ) : (
               <>
+                {/* If the analysis is still loading */}
                 {isLoading ? (
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
                     <p className="mt-2 text-gray-600">Analyzing market data...</p>
                   </div>
                 ) : (
-                  <div className="prose max-w-none">
-                    {analysis.split('\n').map((line, index) => (
-                      <p key={index} className="text-gray-700 mb-2">{line}</p>
-                    ))}
+                  // 2) Render the AI-generated analysis as Markdown
+                  <div className="prose max-w-none text-gray-700 mb-2">
+                    <ReactMarkdown>{analysis}</ReactMarkdown>
                     <button
                       onClick={handleAskGemini}
                       className="mt-4 bg-[#1a73e8] text-white font-bold px-4 py-2 rounded
