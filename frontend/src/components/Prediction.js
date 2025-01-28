@@ -6,11 +6,60 @@ const Prediction = () => {
   const [showError, setShowError] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [showAIPanel, setShowAIPanel] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [analysis, setAnalysis] = useState('');
+  const [hasRequestedAnalysis, setHasRequestedAnalysis] = useState(false);
 
   const sectors = {
-    'commercial bank': ['SCB', 'NABIL'],
-    'development bank': ['JBBL', 'GBBL']
+    'Commercial Bank': ['SCB', 'NABIL'],
+    'Development Bank': ['JBBL', 'GBBL']
   };
+
+  const handleAskGemini = async () => {
+    if (!selectedScript) return;
+    
+    setIsLoading(true);
+    setAnalysis('');
+    setHasRequestedAnalysis(true);
+
+    try {
+      // Fetch and convert image
+      const imageUrl = `/images/${selectedScript}.png`;
+      const imageResponse = await fetch(imageUrl);
+      if (!imageResponse.ok) throw new Error('Failed to load image');
+      
+      const blob = await imageResponse.blob();
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      const base64data = await new Promise((resolve) => {
+        reader.onloadend = () => resolve(reader.result);
+      });
+
+      // Send analysis request
+      const response = await fetch('http://localhost:5000/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ 
+          script: selectedScript,
+          image: base64data,
+          prompt: "Analyze this stock prediction chart and provide insights:" 
+        })
+      });
+
+      if (!response.ok) throw new Error('Analysis failed');
+      
+      const data = await response.json();
+      setAnalysis(data.analysis);
+    } catch (error) {
+      console.error('Error:', error);
+      setAnalysis('Failed to load analysis. Please try again.');
+    }
+    setIsLoading(false);
+  };
+
 
   const handleSectorChange = (e) => {
     setSelectedSector(e.target.value);
@@ -33,12 +82,12 @@ const Prediction = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 relative">
       <div className="max-w-7xl mx-auto">
-        {/* Welcome Section - Center Aligned */}
+        {/* Welcome Section */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">Welcome to Sage's Oracle</h1>
         </div>
 
-        {/* Sector Selection without AI Analysis Button */}
+        {/* Sector Selection */}
         <div className="flex justify-center mb-6">
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
             <div className="space-y-6">
@@ -65,7 +114,7 @@ const Prediction = () => {
           </div>
         </div>
 
-        {/* Script Selection - Center Aligned */}
+        {/* Script Selection */}
         <div className="flex justify-center mb-6">
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
             <div className="space-y-6">
@@ -95,7 +144,7 @@ const Prediction = () => {
           </div>
         </div>
 
-        {/* Predict Button & AI Analysis Button - Center Aligned */}
+        {/* Action Buttons */}
         <div className="flex gap-4 justify-center mb-6">
           <button
             className="bg-green-500 text-black font-bold px-4 py-2 rounded
@@ -118,7 +167,7 @@ const Prediction = () => {
           </button>
         </div>
 
-        {/* Image Display - Center Aligned */}
+        {/* Prediction Image */}
         {showImage && selectedScript && (
           <div className="mt-6 w-full flex justify-center">
             <img
@@ -136,16 +185,55 @@ const Prediction = () => {
           <div className="flex justify-between items-center p-4 border-b">
             <h2 className="text-xl font-bold">AI Analysis</h2>
             <button
-              onClick={() => setShowAIPanel(false)}
+              onClick={() => {
+                setShowAIPanel(false);
+                setHasRequestedAnalysis(false);
+                setAnalysis('');
+              }}
               className="text-gray-500 hover:text-gray-700 text-xl"
             >
               ×
             </button>
           </div>
           <div className="p-6">
-            <p className="text-gray-700">
-              Utilize Gemini to analyze and interpret this prediction with real-time insights and comprehensive trend analysis.
-            </p>
+            {!hasRequestedAnalysis ? (
+              <div className="text-center">
+                <p className="text-gray-700 mb-4">
+                  Get AI-powered analysis of this stock prediction with real-time insights.
+                </p>
+                <button
+                  onClick={handleAskGemini}
+                  className="bg-[#1a73e8] text-white font-bold px-6 py-2 rounded
+                    hover:bg-[#1557b0] transition-colors duration-200
+                    focus:outline-none focus:ring-2 focus:ring-[#1a73e8]"
+                >
+                  Ask Gemini
+                </button>
+              </div>
+            ) : (
+              <>
+                {isLoading ? (
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+                    <p className="mt-2 text-gray-600">Analyzing market data...</p>
+                  </div>
+                ) : (
+                  <div className="prose max-w-none">
+                    {analysis.split('\n').map((line, index) => (
+                      <p key={index} className="text-gray-700 mb-2">{line}</p>
+                    ))}
+                    <button
+                      onClick={handleAskGemini}
+                      className="mt-4 bg-[#1a73e8] text-white font-bold px-4 py-2 rounded
+                        hover:bg-[#1557b0] transition-colors duration-200
+                        focus:outline-none focus:ring-2 focus:ring-[#1a73e8] text-sm"
+                    >
+                      Refresh Analysis
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       )}

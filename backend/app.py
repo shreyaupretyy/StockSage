@@ -1,10 +1,16 @@
-from flask import Flask, jsonify, request
-import json
+from flask import Flask, jsonify, request, json
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from datetime import timedelta
+import google.generativeai as genai
+import os
+import requests
+from dotenv import load_dotenv
+import base64
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -17,6 +23,10 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
+
+# Configure Gemini
+genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+model = genai.GenerativeModel('gemini-pro-vision')
 
 # Database Models
 class User(db.Model):
@@ -34,15 +44,12 @@ class User(db.Model):
 def register():
     data = request.get_json()
     
-    # Validate required fields
     if not all(k in data for k in ('email', 'password', 'full_name')):
         return jsonify({'message': 'Missing required fields'}), 400
     
-    # Check if user already exists
     if User.query.filter_by(email=data['email']).first():
         return jsonify({'message': 'Email already registered'}), 400
     
-    # Create new user
     hashed_password = generate_password_hash(data['password'])
     new_user = User(
         full_name=data['full_name'],
@@ -62,18 +69,14 @@ def register():
 def login():
     data = request.get_json()
     
-    # Validate input
     if not all(k in data for k in ('email', 'password')):
         return jsonify({'message': 'Missing email or password'}), 400
     
-    # Find user
     user = User.query.filter_by(email=data['email']).first()
     
-    # Verify password
     if not user or not check_password_hash(user.password, data['password']):
         return jsonify({'message': 'Invalid email or password'}), 401
     
-    # Create access token
     access_token = create_access_token(identity=user.email)
     
     return jsonify({
@@ -84,9 +87,49 @@ def login():
         }
     }), 200
 
-# Existing news API with JWT protection
+# Analysis Route
+@app.route('/api/analyze', methods=['POST'])
+@jwt_required()
+def analyze():
+    try:
+        data = request.json
+        script = data.get('script')
+        image_data = data.get('image')
+        
+        if not script or not image_data:
+            return jsonify({'error': 'Missing script or image data'}), 400
+
+        # Extract base64 data
+        if 'base64,' in image_data:
+            image_data = image_data.split('base64,')[1]
+
+        # Create the prompt
+        prompt = f"""Analyze the stock {script} as a financial expert. Consider:
+        - Recent market performance
+        - Key financial indicators
+        - Industry trends
+        - Risk factors
+        Provide concise, actionable insights in bullet points. 
+        Include the chart analysis from the provided image."""
+
+        # Generate response
+        response = model.generate_content([
+            prompt,
+            {
+                'mime_type': 'image/png',
+                'data': base64.b64decode(image_data)
+            }
+        ])
+
+        return jsonify({'analysis': response.text})
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return jsonify({'error': 'Analysis failed. Please try again.'}), 500
+
+# Existing news API
 @app.route('/api/news', methods=['GET'])
-# @jwt_required()  # This makes the route protected
+@jwt_required()
 def get_news():
     with open('news_links.json', 'r') as f:
         news_data = json.load(f)
@@ -101,9 +144,9 @@ def get_news():
 
     return jsonify(news_data.get(category, []))
 
-# Market summary API with JWT protection
+# Market summary API
 @app.route('/api/market-summary', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 def get_market_summary():
     try:
         with open('market-summary-1.json', 'r') as f:
@@ -114,7 +157,7 @@ def get_market_summary():
     except json.JSONDecodeError:
         return jsonify({"error": "Error decoding the JSON file"}), 500
 
-# Test protected route
+# Protected route
 @app.route('/api/protected', methods=['GET'])
 @jwt_required()
 def protected():
@@ -123,5 +166,5 @@ def protected():
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Create database tables
+        db.create_all()
     app.run(debug=True)
