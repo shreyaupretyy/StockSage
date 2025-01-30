@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../utils/api';
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ setIsAuthenticated }) => {
+  const navigate = useNavigate();
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+  });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!email || !password) {
+    if (!credentials.email || !credentials.password) {
       setError('Please fill in all fields');
       return;
     }
@@ -21,15 +22,38 @@ const LoginPage = () => {
       setIsLoading(true);
       setError('');
       
-      const response = await loginUser({ email, password });
-      localStorage.setItem('userToken', response.token);
-      localStorage.setItem('userEmail', email);
-      navigate('/dashboard');
-    } catch (err) {
-      setError(err.message || 'Login failed. Please try again.');
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(credentials),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        localStorage.setItem('token', data.token); // Store the token
+        sessionStorage.setItem('user', JSON.stringify(data.user));
+        setIsAuthenticated(true);
+        navigate('/dashboard'); // Redirect to dashboard
+      } else {
+        setError(data.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('An error occurred during login');
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleChange = (e) => {
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value
+    });
   };
 
   return (
@@ -65,9 +89,11 @@ const LoginPage = () => {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={credentials.email}
+              onChange={handleChange}
+              required
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             />
           </div>
@@ -78,9 +104,11 @@ const LoginPage = () => {
             </label>
             <input
               type="password"
+              name="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={credentials.password}
+              onChange={handleChange}
+              required
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             />
           </div>
@@ -125,4 +153,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

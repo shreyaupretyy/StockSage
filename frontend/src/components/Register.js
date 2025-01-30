@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../utils/api';
 
-const SignupPage = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -162,4 +162,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default Register;
