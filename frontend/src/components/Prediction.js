@@ -17,7 +17,9 @@ const Prediction = () => {
   // Sectors and scripts for dropdown
   const sectors = {
     'Commercial Bank': ['SCB', 'NABIL'],
-    'Development Bank': ['JBBL', 'GBBL']
+    'Development Bank': ['JBBL'],
+    'Hydropower': ['API'],
+    'Others': ['NTC']
   };
 
   // Handler for Gemini AI request

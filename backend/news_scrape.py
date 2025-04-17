@@ -20,7 +20,7 @@ def scrape_sharesansar():
     
     try:
         # URL to scrape
-        url = 'https://www.sharesansar.com/company/scb'
+        url = 'https://www.sharesansar.com/company/jbbl'
         driver.get(url)
         
         # Wait for initial page load
@@ -37,8 +37,7 @@ def scrape_sharesansar():
         
         # Open CSV file for writing
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        csv_filename = f'sharesansar_news_{timestamp}.csv'
-        excel_filename = f'sharesansar_news_{timestamp}.xlsx'
+        csv_filename = f'JBBL/sharesansar_news.csv'
         
         with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -96,32 +95,9 @@ def scrape_sharesansar():
         # Convert CSV to Excel with formatting
         df = pd.read_csv(csv_filename)
         
-        # Create Excel writer
-        with pd.ExcelWriter(excel_filename, engine='xlsxwriter') as writer:
-            df.to_excel(writer, sheet_name='News', index=False)
-            
-            # Get workbook and worksheet objects
-            workbook = writer.book
-            worksheet = writer.sheets['News']
-            
-            # Add formatting
-            header_format = workbook.add_format({
-                'bold': True,
-                'bg_color': '#D3D3D3',
-                'border': 1
-            })
-            
-            # Format header row
-            for col_num, value in enumerate(df.columns.values):
-                worksheet.write(0, col_num, value, header_format)
-            
-            # Adjust column widths
-            worksheet.set_column('A:A', 15)  # Date
-            worksheet.set_column('B:B', 50)  # Title
-            worksheet.set_column('C:C', 30)  # URL
+       
 
         print(f"\nData exported to CSV: {csv_filename}")
-        print(f"Data exported to Excel: {excel_filename}")
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
