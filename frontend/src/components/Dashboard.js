@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
   AreaChart,
   Area,
@@ -7,9 +8,13 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Cell,
+  LabelList
 } from 'recharts';
-import { FaArrowUp, FaArrowDown, FaWallet, FaChartLine, FaGlobe, FaChevronRight } from 'react-icons/fa';
+import { FaArrowUp, FaArrowDown, FaWallet, FaChartLine, FaGlobe, FaChevronRight, FaTrophy, FaCalendarAlt } from 'react-icons/fa';
 
 const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-navy/5 to-teal/5">
@@ -20,6 +25,8 @@ const LoadingSpinner = () => (
   </div>
 );
 
+const API_URL = 'http://127.0.0.1:5000';
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -27,14 +34,66 @@ const Dashboard = () => {
   const [marketData, setMarketData] = useState(null);
   const [topStocks, setTopStocks] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [stockReturns, setStockReturns] = useState([]);
+  const [currentDate] = useState(new Date("2025-04-17"));
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        // Simulated API responses since backend isn't ready
-        // Replace these with actual API calls when backend is ready
+        // Fetch stock returns data from API
+        const stockReturnsResponse = await axios.get(`${API_URL}/api/stock-returns`);
         
-        // Portfolio data simulation
+        if (stockReturnsResponse.data && stockReturnsResponse.data.length > 0) {
+          setStockReturns(stockReturnsResponse.data);
+          
+          // Use the top stocks for the topStocks section
+          setTopStocks(stockReturnsResponse.data.slice(0, 5).map(stock => ({
+            symbol: stock.symbol,
+            company: getCompanyName(stock.symbol),
+            price: stock.current_price,
+            change: stock.expected_return
+          })));
+        } else {
+          // Fallback to mock data if API returns no data
+          setStockReturns([
+            { symbol: 'NABIL', expected_return: 7.8, current_price: 1200, predicted_price: 1293.6, is_mock: true },
+            { symbol: 'SCB', expected_return: 5.2, current_price: 500, predicted_price: 526.0, is_mock: true },
+            { symbol: 'API', expected_return: 6.3, current_price: 300, predicted_price: 318.9, is_mock: true },
+            { symbol: 'JBBL', expected_return: 4.5, current_price: 400, predicted_price: 418.0, is_mock: true },
+            { symbol: 'NTC', expected_return: 3.9, current_price: 900, predicted_price: 935.1, is_mock: true }
+          ]);
+          
+          // Fallback top stocks
+          setTopStocks([
+            { symbol: 'NABIL', company: 'Nabil Bank Limited', price: 1200, change: 7.8 },
+            { symbol: 'API', company: 'API Power Company Limited', price: 300, change: 6.3 },
+            { symbol: 'SCB', company: 'Standard Chartered Bank Nepal', price: 500, change: 5.2 },
+            { symbol: 'JBBL', company: 'Jyoti Bikas Bank Limited', price: 400, change: 4.5 },
+            { symbol: 'NTC', company: 'Nepal Telecom', price: 900, change: 3.9 }
+          ]);
+        }
+        
+        // Fetch market summary data
+        try {
+          const marketResponse = await axios.get(`${API_URL}/api/market-summary`);
+          if (marketResponse.data) {
+            setMarketData({
+              niftyChange: marketResponse.data.change || 0.5,
+              volume: marketResponse.data.volume || '2.5M',
+              status: marketResponse.data.status || 'Open'
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching market data:', error);
+          // Fallback market data
+          setMarketData({
+            niftyChange: 0.5,
+            volume: '2.5M',
+            status: 'Open'
+          });
+        }
+
+        // Portfolio data simulation (would come from backend in real app)
         setPortfolioData({
           totalValue: 500000,
           dailyChange: 2.5,
@@ -42,48 +101,7 @@ const Dashboard = () => {
           profitLossPercentage: 5.0
         });
 
-        // Market data simulation
-        setMarketData({
-          sp500Change: 1.2,
-          nasdaqChange: -0.8,
-          niftyChange: 0.5
-        });
-
-        // Top stocks simulation
-        setTopStocks([
-          {
-            symbol: 'NABIL',
-            company: 'Nepal Bank Limited',
-            price: 1200,
-            change: 2.5
-          },
-          {
-            symbol: 'UPPER',
-            company: 'Upper Tamakoshi',
-            price: 640,
-            change: -1.2
-          },
-          {
-            symbol: 'NLIC',
-            company: 'Nepal Life Insurance',
-            price: 1500,
-            change: 3.7
-          },
-          {
-            symbol: 'CHCL',
-            company: 'Chilime Hydropower',
-            price: 520,
-            change: 1.8
-          },
-          {
-            symbol: 'SBI',
-            company: 'State Bank of India',
-            price: 890,
-            change: -0.5
-          }
-        ]);
-
-        // Chart data simulation
+        // Chart data simulation (would come from backend in real app)
         setChartData([
           { date: 'Jan', value: 400000 },
           { date: 'Feb', value: 420000 },
@@ -96,12 +114,70 @@ const Dashboard = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
+        // Set fallback data
+        fallbackData();
         setLoading(false);
       }
     };
 
     fetchDashboardData();
   }, [navigate]);
+
+  const fallbackData = () => {
+    // Portfolio data simulation
+    setPortfolioData({
+      totalValue: 500000,
+      dailyChange: 2.5,
+      totalProfitLoss: 25000,
+      profitLossPercentage: 5.0
+    });
+
+    // Market data simulation
+    setMarketData({
+      niftyChange: 0.5,
+      volume: '2.5M',
+      status: 'Open'
+    });
+
+    // Top stocks simulation
+    setTopStocks([
+      { symbol: 'NABIL', company: 'Nabil Bank Limited', price: 1200, change: 7.8 },
+      { symbol: 'API', company: 'API Power Company Limited', price: 300, change: 6.3 },
+      { symbol: 'SCB', company: 'Standard Chartered Bank Nepal', price: 500, change: 5.2 },
+      { symbol: 'JBBL', company: 'Jyoti Bikas Bank Limited', price: 400, change: 4.5 },
+      { symbol: 'NTC', company: 'Nepal Telecom', price: 900, change: 3.9 }
+    ]);
+
+    // Chart data simulation
+    setChartData([
+      { date: 'Jan', value: 400000 },
+      { date: 'Feb', value: 420000 },
+      { date: 'Mar', value: 450000 },
+      { date: 'Apr', value: 445000 },
+      { date: 'May', value: 480000 },
+      { date: 'Jun', value: 500000 }
+    ]);
+    
+    // Stock returns simulation
+    setStockReturns([
+      { symbol: 'NABIL', expected_return: 7.8, current_price: 1200, predicted_price: 1293.6, is_mock: true },
+      { symbol: 'API', expected_return: 6.3, current_price: 300, predicted_price: 318.9, is_mock: true },
+      { symbol: 'SCB', expected_return: 5.2, current_price: 500, predicted_price: 526.0, is_mock: true },
+      { symbol: 'JBBL', expected_return: 4.5, current_price: 400, predicted_price: 418.0, is_mock: true },
+      { symbol: 'NTC', expected_return: 3.9, current_price: 900, predicted_price: 935.1, is_mock: true }
+    ]);
+  };
+
+  const getCompanyName = (symbol) => {
+    const companyNames = {
+      'SCB': 'Standard Chartered Bank Nepal',
+      'NABIL': 'Nabil Bank Limited',
+      'JBBL': 'Jyoti Bikas Bank Limited',
+      'API': 'API Power Company Limited',
+      'NTC': 'Nepal Telecom'
+    };
+    return companyNames[symbol] || symbol;
+  };
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-NP', {
@@ -115,7 +191,27 @@ const Dashboard = () => {
     return `${value > 0 ? '+' : ''}${value.toFixed(2)}%`;
   };
 
+  // Handle stock click to redirect to prediction page
+  const handleStockClick = () => {
+    navigate(`/prediction/`);  // Updated to match your existing prediction.js route
+  };
+
+  // Format current date
+  const formatDate = (date) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };
+  
   if (loading) return <LoadingSpinner />;
+
+  // Custom colors for the bar chart (blue to purple gradient)
+  const getBarColor = (value) => {
+    if (value >= 7) return '#4338CA'; // Indigo-700
+    if (value >= 5) return '#6366F1'; // Indigo-500
+    if (value >= 3) return '#818CF8'; // Indigo-400
+    if (value >= 0) return '#A5B4FC'; // Indigo-300
+    return '#F87171'; // Red-400 for negative returns
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-navy/5 to-teal/5 py-12">
@@ -125,6 +221,10 @@ const Dashboard = () => {
           <h1 className="text-4xl font-extrabold text-navy mb-4 font-['Inter']">
             Your Portfolio Overview
           </h1>
+          <div className="flex items-center justify-center text-gray-600 mb-4">
+            <FaCalendarAlt className="mr-2" />
+            <span>{formatDate(currentDate)}</span>
+          </div>
           <p className="text-xl text-gray-600">
             Track your investments and market performance
           </p>
@@ -194,13 +294,73 @@ const Dashboard = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Daily Volume</span>
-                <span className="text-navy font-medium">2.5M</span>
+                <span className="text-navy font-medium">{marketData?.volume || '2.5M'}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Market Status</span>
-                <span className="text-teal font-medium">Open</span>
+                <span className="text-teal font-medium">{marketData?.status || 'Open'}</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Expected Returns Chart */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-12 border border-gray-100">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-lg font-semibold text-navy">30-Day Expected Stock Returns</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Predicted performance from December 10, 2024 to January 9, 2025
+              </p>
+            </div>
+            <div className="p-2 bg-navy/5 rounded-lg">
+              <FaTrophy className="text-indigo-600 text-xl" />
+            </div>
+          </div>
+          
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={stockReturns}
+                margin={{ top: 10, right: 30, left: 0, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis 
+                  dataKey="symbol" 
+                  stroke="#64748B"
+                  tick={{ fill: '#0F172A', fontSize: 14 }}
+                />
+                <YAxis 
+                  stroke="#64748B"
+                  tickFormatter={(value) => `${value}%`}
+                />
+                <Tooltip
+                  formatter={(value, name) => [`${value.toFixed(2)}%`, 'Expected Return']}
+                  labelFormatter={(label) => `Stock: ${label}`}
+                  contentStyle={{
+                    backgroundColor: 'white',
+                    borderRadius: '8px',
+                    border: '1px solid #E5E7EB',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}
+                />
+                <Bar dataKey="expected_return" name="Expected Return">
+                  {stockReturns.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={getBarColor(entry.expected_return)} 
+                      cursor="pointer"
+                      onClick={() => handleStockClick(entry.symbol)}
+                    />
+                  ))}
+                  <LabelList dataKey="expected_return" position="top" formatter={(value) => `${value.toFixed(1)}%`} fill="#374151" />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="mt-4 text-center text-sm text-gray-500 flex items-center justify-center">
+            <FaChevronRight className="mr-1 text-indigo-500" /> 
+            <span>Click on any bar to view detailed prediction and analysis for that stock</span>
           </div>
         </div>
 
@@ -251,7 +411,7 @@ const Dashboard = () => {
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-navy">Top Performing Stocks</h3>
             <div className="p-2 bg-navy/5 rounded-lg">
-              <FaChartLine className="text-teal text-xl" />
+              <FaChartLine className="text-indigo-500 text-xl" />
             </div>
           </div>
           <div className="overflow-x-auto">
@@ -265,10 +425,10 @@ const Dashboard = () => {
                     Company
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-semibold text-navy uppercase tracking-wider">
-                    Price
+                    Current Price
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-semibold text-navy uppercase tracking-wider">
-                    Change
+                    30-Day Return
                   </th>
                 </tr>
               </thead>
@@ -276,13 +436,13 @@ const Dashboard = () => {
                 {topStocks.map((stock) => (
                   <tr 
                     key={stock.symbol}
-                    className="hover:bg-navy/5 transition-colors cursor-pointer"
-                    onClick={() => navigate(`/stocks/${stock.symbol}`)}
+                    className="hover:bg-indigo-50 transition-colors cursor-pointer group"
+                    onClick={() => handleStockClick(stock.symbol)}
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <span className="text-sm font-medium text-navy">{stock.symbol}</span>
-                        <FaChevronRight className="ml-2 text-teal text-xs opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <FaChevronRight className="ml-2 text-indigo-500 text-xs opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
@@ -292,7 +452,7 @@ const Dashboard = () => {
                       {formatCurrency(stock.price)}
                     </td>
                     <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${
-                      stock.change >= 0 ? 'text-teal' : 'text-red-500'
+                      stock.change >= 0 ? 'text-indigo-600' : 'text-red-500'
                     }`}>
                       <div className="flex items-center">
                         {stock.change >= 0 ? <FaArrowUp className="mr-1" /> : <FaArrowDown className="mr-1" />}

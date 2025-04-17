@@ -509,6 +509,14 @@ def predict(symbol):
 
             # Create visualization
             graph = create_prediction_plot(historical_data, predictions, future_dates, symbol)
+            
+            # Calculate expected return percentage over the prediction period
+            if len(predictions) > 0:
+                first_price = predictions[0]
+                last_price = predictions[-1]
+                expected_return = ((last_price - first_price) / first_price) * 100
+            else:
+                expected_return = 0.0
 
             return jsonify({
                 'success': True,
@@ -516,7 +524,8 @@ def predict(symbol):
                 'predictions': predictions,
                 'graph': graph,
                 'dates': [d.strftime('%Y-%m-%d') for d in future_dates],
-                'is_mock': False
+                'is_mock': False,
+                'expected_return': expected_return
             })
 
         except Exception as e:
@@ -841,7 +850,119 @@ def check_model_availability():
     return jsonify(model_status)
 
 # =========================
-# 14. Main Execution
+# 14. Stock Return Comparison
+# =========================
+
+@app.route('/api/stock-returns', methods=['GET'])
+def get_stock_returns():
+    """
+    Generates expected returns for all supported stocks
+    to help users identify good investment opportunities.
+    """
+    supported_symbols = ['SCB', 'NABIL', 'JBBL', 'API', 'NTC']
+    stock_returns = []
+    
+    for symbol in supported_symbols:
+        # Try to get real prediction data
+        result = load_model_and_scaler(symbol)
+        
+        if result and not any(x is None for x in result):
+            model, scaler, historical_data, last_sequence = result
+            
+            try:
+                device = next(model.parameters()).device
+                
+                # Make prediction for this stock
+                input_tensor = torch.FloatTensor(last_sequence).unsqueeze(0).to(device)
+                
+                if input_tensor.shape[2] != 26:
+                    raise ValueError("Invalid input sequence shape")
+                
+                predictions = []
+                current_sequence = input_tensor.clone()
+                
+                # Generate predictions for 30 days
+                for _ in range(30):
+                    with torch.no_grad():
+                        output = model(current_sequence).cpu().numpy()
+                    
+                    # Inverse transform prediction
+                    dummy = np.zeros((1, scaler.n_features_in_))
+                    dummy[0, 0] = output[0][0]
+                    pred_price = scaler.inverse_transform(dummy)[0, 0]
+                    predictions.append(pred_price)
+                    
+                    # Update sequence
+                    new_seq = current_sequence.cpu().numpy().squeeze(0)
+                    new_seq = np.roll(new_seq, -1, axis=0)
+                    new_seq[-1, 0] = output[0][0]  # Update only the 'Close' feature
+                    current_sequence = torch.FloatTensor(new_seq).unsqueeze(0).to(device)
+                
+                # Calculate expected return percentage
+                if len(predictions) > 0:
+                    first_price = predictions[0]
+                    last_price = predictions[-1]
+                    expected_return = ((last_price - first_price) / first_price) * 100
+                    
+                    # Get current price for reference
+                    current_price = valid_historical_data['Close'].iloc[-1] if 'valid_historical_data' in locals() and len(valid_historical_data) > 0 else first_price
+                    
+                    stock_returns.append({
+                        'symbol': symbol,
+                        'expected_return': expected_return,
+                        'current_price': float(current_price),
+                        'predicted_price': float(last_price),
+                        'is_mock': False
+                    })
+                    continue
+                
+            except Exception as e:
+                print(f"Error calculating return for {symbol}: {str(e)}")
+                # Fall through to mock return calculation
+        
+        # If we got here, either no model or prediction failed
+        # Generate mock return data
+        try:
+            base_return = {
+                'SCB': 5.2,
+                'NABIL': 7.8,
+                'JBBL': 4.5,
+                'API': 6.3,
+                'NTC': 3.9
+            }.get(symbol, 4.0)
+            
+            # Add some randomness
+            expected_return = base_return + (np.random.random() - 0.5) * 2
+            
+            base_price = {
+                'SCB': 500,
+                'NABIL': 1200,
+                'JBBL': 400,
+                'API': 300,
+                'NTC': 900
+            }.get(symbol, 500)
+            
+            current_price = base_price
+            predicted_price = base_price * (1 + expected_return/100)
+            
+            stock_returns.append({
+                'symbol': symbol,
+                'expected_return': expected_return,
+                'current_price': float(current_price),
+                'predicted_price': float(predicted_price),
+                'is_mock': True
+            })
+            
+        except Exception as e:
+            print(f"Error generating mock return for {symbol}: {str(e)}")
+    
+    # Sort stocks by expected return (highest first)
+    stock_returns.sort(key=lambda x: x['expected_return'], reverse=True)
+    
+    return jsonify(stock_returns)
+
+# =========================
+# 15. Main Execution
 # =========================
 
 if __name__ == '__main__':
