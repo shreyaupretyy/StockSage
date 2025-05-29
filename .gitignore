@@ -12,4 +12,9 @@ node_modules/
 # Environment variables
 .env
 
+#Database
 database.sql
+
+
+
+

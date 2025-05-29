@@ -1,0 +1,70 @@
+[
+  {
+    "id": "1",
+    "name": "Commercial Bank"
+  },
+  {
+    "id": "2",
+    "name": "Corporate Debentures"
+  },
+  {
+    "id": "3",
+    "name": "Development Bank"
+  },
+  {
+    "id": "4",
+    "name": "Finance"
+  },
+  {
+    "id": "5",
+    "name": "Government Bonds"
+  },
+  {
+    "id": "6",
+    "name": "Hotel & Tourism"
+  },
+  {
+    "id": "7",
+    "name": "Hydropower"
+  },
+  {
+    "id": "20",
+    "name": "Investment"
+  },
+  {
+    "id": "8",
+    "name": "Life Insurance"
+  },
+  {
+    "id": "9",
+    "name": "Manufacturing and Processing"
+  },
+  {
+    "id": "12",
+    "name": "Microfinance"
+  },
+  {
+    "id": "13",
+    "name": "Mutual Fund"
+  },
+  {
+    "id": "15",
+    "name": "Non-Life Insurance"
+  },
+  {
+    "id": "16",
+    "name": "Others"
+  },
+  {
+    "id": "17",
+    "name": "Preference Share"
+  },
+  {
+    "id": "18",
+    "name": "Promoter Share"
+  },
+  {
+    "id": "19",
+    "name": "Trading"
+  }
+]

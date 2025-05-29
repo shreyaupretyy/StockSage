@@ -1,137 +1,181 @@
 import React from 'react';
+import { FaChartLine, FaUsers, FaClock, FaBullseye, FaChartBar, FaClipboardCheck, FaRocket, 
+         FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white py-24">
-      <div className="max-w-5xl mx-auto px-6">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-6xl font-extrabold text-gray-900 mb-6">
-            About Us
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-8"></div>
-          <p className="text-xl text-gray-600 font-medium italic">
-            "Empowering investors with intelligent insights"
-          </p>
-        </div>
-        
-        {/* Introduction Section */}
-        <div className="space-y-8 mb-16">
-          <p className="text-lg text-gray-600 text-center leading-relaxed">
-            Welcome to <span className="text-blue-600 font-semibold hover:text-blue-700 cursor-pointer transition-colors">StockSage</span> 
-            – where cutting-edge technology meets financial expertise. Our platform represents the future of intelligent investment decision-making.
-          </p>
-          
-          <p className="text-lg text-gray-600 text-center leading-relaxed">
-            Founded by a dynamic team of students from Pulchowk Campus, 
-            <span className="text-blue-600 font-semibold hover:text-blue-700 cursor-pointer transition-colors"> StockSage </span> 
-            emerged from our passion for combining advanced technology with financial markets. Our diverse team brings together expertise in machine learning, 
-            financial analysis, and software engineering to create a comprehensive investment platform.
-          </p>
-          
-          <p className="text-lg text-gray-600 text-center leading-relaxed">
-            We understand that navigating the stock market can be challenging. That's why we've developed 
-            <span className="text-blue-600 font-semibold hover:text-blue-700 cursor-pointer transition-colors"> StockSage </span> 
-            to be your intelligent companion, providing data-driven insights and powerful analysis tools to help you make informed decisions with confidence.
-          </p>
-        </div>
-
-        {/* Mission Section */}
-        <div className="mb-16">
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="h-0.5 w-16 bg-gradient-to-r from-blue-400 to-blue-600"></div>
-            <h2 className="text-4xl font-bold text-gray-900">Our Mission</h2>
-            <div className="h-0.5 w-16 bg-gradient-to-r from-blue-600 to-blue-400"></div>
-          </div>
-          <div className="bg-gray-50 p-8 rounded-2xl shadow-sm">
-            <p className="text-lg text-gray-600 text-center leading-relaxed">
-              Our mission is to democratize access to sophisticated investment tools and insights. We believe that every investor, 
-              regardless of their experience level, should have access to professional-grade analysis tools and predictive technologies. 
-              Through our platform, we aim to bridge the gap between complex market data and actionable investment decisions.
+    <div className="min-h-screen bg-gradient-to-b from-navy/5 to-teal/5">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-navy to-navy/90 text-white py-24 relative overflow-hidden">
+        {/* CSS-based pattern background */}
+        <div className="absolute inset-0 opacity-10"
+             style={{
+               backgroundImage: `radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.15) 1px, transparent 0)`,
+               backgroundSize: '20px 20px'
+             }} />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-extrabold mb-8 font-['Inter'] tracking-tight">
+              About StockSage
+            </h1>
+            <p className="text-2xl max-w-3xl mx-auto leading-relaxed">
+              Your intelligent companion for navigating the Nepali stock market with confidence and precision.
             </p>
           </div>
         </div>
+      </div>
 
-        {/* Features Section */}
-        <div className="mb-16">
-          <div className="flex items-center justify-center gap-4 mb-12">
-            <div className="h-0.5 w-16 bg-gradient-to-r from-blue-400 to-blue-600"></div>
-            <h2 className="text-4xl font-bold text-gray-900">Our Features</h2>
-            <div className="h-0.5 w-16 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+      {/* Mission Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+          <div className="space-y-8">
+            <div className="inline-block">
+              <h2 className="text-5xl font-bold text-navy mb-4">Our Mission</h2>
+              <div className="h-2 w-20 bg-gradient-to-r from-teal to-navy rounded-full" />
+            </div>
+            <div className="space-y-6">
+              <p className="text-xl text-gray-600 leading-relaxed">
+                At StockSage, we're committed to democratizing stock market information and making it accessible to everyone. Our platform combines cutting-edge technology with comprehensive market data to provide you with the insights you need.
+              </p>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                We believe that informed investors make better decisions, and we're here to provide you with the tools and knowledge you need to succeed in the Nepali stock market.
+              </p>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="group bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-blue-100">
-              <h4 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-blue-500/50 group-hover:scale-105 transition-transform">
-                Advanced Stock Prediction
-              </h4>
+
+          <div className="grid grid-cols-2 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 
+                           transform transition-all duration-300 hover:scale-105">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-navy/10 to-teal/10 
+                               rounded-xl flex items-center justify-center">
+                  <FaUsers className="text-3xl text-teal" />
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-navy mb-2">50K+</div>
+                <div className="text-gray-600 font-medium">Active Users</div>
+              </div>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 
+                           transform transition-all duration-300 hover:scale-105">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-navy/10 to-teal/10 
+                               rounded-xl flex items-center justify-center">
+                  <FaChartBar className="text-3xl text-teal" />
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-navy mb-2">100+</div>
+                <div className="text-gray-600 font-medium">Listed Companies</div>
+              </div>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 
+                           transform transition-all duration-300 hover:scale-105">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-navy/10 to-teal/10 
+                               rounded-xl flex items-center justify-center">
+                  <FaClock className="text-3xl text-teal" />
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-navy mb-2">24/7</div>
+                <div className="text-gray-600 font-medium">Market Updates</div>
+              </div>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 
+                           transform transition-all duration-300 hover:scale-105">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-navy/10 to-teal/10 
+                               rounded-xl flex items-center justify-center">
+                  <FaBullseye className="text-3xl text-teal" />
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-navy mb-2">99%</div>
+                <div className="text-gray-600 font-medium">Accuracy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="py-24 bg-white/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold text-navy mb-6">Why Choose StockSage?</h2>
+            <div className="h-2 w-20 bg-gradient-to-r from-teal to-navy rounded-full mx-auto" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 
+                           transform transition-all duration-300 hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-br from-navy/10 to-teal/10 
+                             rounded-xl flex items-center justify-center mb-6">
+                <FaChartLine className="text-3xl text-teal" />
+              </div>
+              <h3 className="text-xl font-bold text-navy mb-4">Real-Time Data</h3>
               <p className="text-gray-600 leading-relaxed">
-                Our sophisticated machine learning algorithms analyze vast amounts of market data, technical indicators, and historical patterns 
-                to generate accurate predictions. We employ ensemble learning techniques and continuous model optimization to ensure reliable forecasting.
+                Get instant access to live market data, stock prices, and trading volumes.
               </p>
             </div>
-
-            <div className="group bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-blue-100">
-              <h4 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-blue-500/50 group-hover:scale-105 transition-transform">
-                Intelligent Portfolio Management
-              </h4>
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 
+                           transform transition-all duration-300 hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-br from-navy/10 to-teal/10 
+                             rounded-xl flex items-center justify-center mb-6">
+                <FaClipboardCheck className="text-3xl text-teal" />
+              </div>
+              <h3 className="text-xl font-bold text-navy mb-4">Portfolio Management</h3>
               <p className="text-gray-600 leading-relaxed">
-                Take control of your investments with our comprehensive portfolio management system. Track performance, analyze risk metrics, 
-                and receive personalized recommendations for portfolio optimization based on your investment goals and risk tolerance.
+                Track and manage your investments with our advanced portfolio tools.
               </p>
             </div>
-
-            <div className="group bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-blue-100">
-              <h4 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-blue-500/50 group-hover:scale-105 transition-transform">
-                Real-time Sentiment Analysis
-              </h4>
+            <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 
+                           transform transition-all duration-300 hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-br from-navy/10 to-teal/10 
+                             rounded-xl flex items-center justify-center mb-6">
+                <FaRocket className="text-3xl text-teal" />
+              </div>
+              <h3 className="text-xl font-bold text-navy mb-4">Market Analysis</h3>
               <p className="text-gray-600 leading-relaxed">
-                Stay ahead of market trends with our advanced sentiment analysis engine. We process thousands of financial news articles, 
-                social media posts, and market reports in real-time to provide you with valuable insights into market sentiment and emerging trends.
-              </p>
-            </div>
-
-            <div className="group bg-gray-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-blue-100">
-              <h4 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-blue-500/50 group-hover:scale-105 transition-transform">
-                Intuitive User Experience
-              </h4>
-              <p className="text-gray-600 leading-relaxed">
-                Experience the perfect blend of power and simplicity with our thoughtfully designed interface. Access complex financial data 
-                and analysis tools through an intuitive dashboard that makes navigation and decision-making effortless.
+                Advanced charts and technical indicators for informed decision-making.
               </p>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Why Choose Us Section */}
-        <div className="mb-16">
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="h-0.5 w-16 bg-gradient-to-r from-blue-400 to-blue-600"></div>
-            <h2 className="text-4xl font-bold text-gray-900">Why Choose Us</h2>
-            <div className="h-0.5 w-16 bg-gradient-to-r from-blue-600 to-blue-400"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gray-50 p-6 rounded-xl text-center shadow-sm">
-              <h5 className="text-xl font-bold text-gray-900 mb-3">Innovation First</h5>
-              <p className="text-gray-600">Constantly evolving our technology to provide cutting-edge solutions</p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-xl text-center shadow-sm">
-              <h5 className="text-xl font-bold text-gray-900 mb-3">Data-Driven</h5>
-              <p className="text-gray-600">Making decisions backed by comprehensive market analysis</p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-xl text-center shadow-sm">
-              <h5 className="text-xl font-bold text-gray-900 mb-3">User-Focused</h5>
-              <p className="text-gray-600">Designed with your success in mind</p>
-            </div>
-          </div>
+      {/* Team Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl font-bold text-navy mb-6">Our Team</h2>
+          <div className="h-2 w-20 bg-gradient-to-r from-teal to-navy rounded-full mx-auto" />
         </div>
-
-        {/* Closing Statement */}
-        <div className="text-center">
-          <p className="text-xl text-gray-600 leading-relaxed">
-            Let <span className="text-blue-600 font-semibold hover:text-blue-700 cursor-pointer transition-colors">StockSage</span> be 
-            your trusted partner in navigating the complex world of investments. Together, we'll transform your financial aspirations into reality.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+          {[
+            'Sandesh Kuikel',
+            'Shreya Uprety',
+            'Subash Kandel'
+          ].map((name) => (
+            <div key={name} 
+                 className="text-center transform transition-all duration-300 hover:scale-105">
+              <div className="w-48 h-48 mx-auto bg-gradient-to-br from-navy to-teal rounded-full 
+                             mb-8 shadow-xl p-1">
+                <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
+                  <FaUsers className="text-6xl text-navy/20" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-navy mb-4">{name}</h3>
+              <div className="flex justify-center space-x-4">
+                <a href="#" className="text-navy hover:text-teal transition-colors">
+                  <FaLinkedin className="text-xl" />
+                </a>
+                <a href="#" className="text-navy hover:text-teal transition-colors">
+                  <FaGithub className="text-xl" />
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

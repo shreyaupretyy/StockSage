@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar {
+    z-index: 50;
+}
+  
+.navbar-dropdown {
+    z-index: 51;
+}

@@ -7,6 +7,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+
 import time
 
 def scrape_sharesansar():
@@ -20,24 +22,24 @@ def scrape_sharesansar():
     
     try:
         # URL to scrape
-        url = 'https://www.sharesansar.com/company/jbbl'
+        url = 'https://www.sharesansar.com/company/scb'
         driver.get(url)
         
         # Wait for initial page load
         time.sleep(5)
         
         # Click the news tab
-        news_tab = driver.find_element(By.CSS_SELECTOR, "a[href='#cnews']")
+        news_tab = driver.find_element(By.CSS_SELECTOR, "a[href='#cannouncements']")
         driver.execute_script("arguments[0].click();", news_tab)
         time.sleep(3)
         
         # Wait for the DataTable to be fully loaded
         wait = WebDriverWait(driver, 10)
-        table = wait.until(EC.presence_of_element_located((By.ID, "myTableCNews")))
+        table = wait.until(EC.presence_of_element_located((By.ID, "myTableCAnnouncements")))
         
         # Open CSV file for writing
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        csv_filename = f'JBBL/sharesansar_news.csv'
+        csv_filename = f'sharesansar_announcements.csv'
         
         with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -48,7 +50,7 @@ def scrape_sharesansar():
             while True:
                 # Wait for rows to be present on the current page
                 rows = wait.until(EC.presence_of_all_elements_located(
-                    (By.CSS_SELECTOR, "#myTableCNews tbody tr")
+                    (By.CSS_SELECTOR, "#myTableCAnnouncements tbody tr")
                 ))
                 
                 print(f"\nScraping page {page_number}")
@@ -81,7 +83,7 @@ def scrape_sharesansar():
 
                 # Check for the "Next" button for pagination
                 try:
-                    next_button = driver.find_element(By.CSS_SELECTOR, "#myTableCNews_next")
+                    next_button = driver.find_element(By.CSS_SELECTOR, "#myTableCAnnouncements_next")
                     if "disabled" not in next_button.get_attribute('class'):
                         next_button.click()
                         time.sleep(3)  # Adjust this sleep time if needed
@@ -95,7 +97,6 @@ def scrape_sharesansar():
         # Convert CSV to Excel with formatting
         df = pd.read_csv(csv_filename)
         
-       
 
         print(f"\nData exported to CSV: {csv_filename}")
 
