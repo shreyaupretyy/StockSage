@@ -76,7 +76,7 @@ def load_model_and_scaler(symbol):
     Loads a trained PyTorch model, a scaler, and relevant data based on the symbol.
     """
     try:
-        model_dir = os.path.join('D:\\Model', symbol, 'model_components')
+        model_dir = os.path.join('D:\\Projects\\StockSage\\backend\\Model', symbol, 'model_components')
         historical_path = os.path.join(
             'C:\\Users\\DELL\\Desktop\\Stock Prices',
             f"{symbol}.csv"

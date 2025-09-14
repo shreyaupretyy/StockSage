@@ -1,0 +1,31 @@
+Stock: SCB
+Generated on: 2025-04-20 10:17:58
+User: shreyaupretyy
+
+Technical Indicators Analysis:
+
+Correlations with Close Price:
+PSAR: 0.9759
+ATR: 0.6685
+MFI: 0.1554
+RSI: 0.1204
+SO_%D: 0.1155
++DI: 0.1127
+SO_%K: 0.1041
+ADX: 0.0847
+ROC: 0.0813
+-DI: 0.0247
+MACD_Histogram: -0.0092
+CMF: -0.0258
+
+Final Model Performance:
+
+Training Metrics:
+MAE: 0.0088
+RMSE: 0.0122
+MAPE: 5.36%
+
+Validation Metrics:
+MAE: 0.0104
+RMSE: 0.0151
+MAPE: 3.36%

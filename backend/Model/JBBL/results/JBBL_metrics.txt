@@ -1,0 +1,31 @@
+Stock: JBBL
+Generated on: 2025-04-17 13:58:36
+User: shreyaupretyy
+
+Technical Indicators Analysis:
+
+Correlations with Close Price:
+PSAR: 0.9864
+ATR: 0.9287
+ROC: 0.0930
+RSI: 0.0732
+ADX: 0.0627
+MACD_Histogram: 0.0235
+SO_%D: 0.0115
+SO_%K: 0.0094
++DI: -0.0102
+MFI: -0.0921
+-DI: -0.1594
+CMF: -0.3548
+
+Final Model Performance:
+
+Training Metrics:
+MAE: 0.0077
+RMSE: 0.0135
+MAPE: 19.91%
+
+Validation Metrics:
+MAE: 0.0226
+RMSE: 0.0278
+MAPE: 4.61%

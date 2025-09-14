@@ -2,9 +2,18 @@
 
 StockSage is an AI-powered stock analysis platform specifically designed for the Nepali stock market. It combines machine learning technology with historical market data to provide investors with intelligent insights and predictions.
 
-![StockSage Logo](frontend/public/stocksage_logo.ico)
+## Screenshots
 
-## 🚀 Features
+### Home Page
+![Home Page](frontend/public/screenshots/homepage.png)
+
+### Stocks Page
+![Stocks Page](frontend/public/screenshots/stocks_page.png)
+
+### Prediction Page
+![Prediction Page](frontend/public/screenshots/prediction_page.png)
+
+## Features
 
 - **Historical Market Data**: Comprehensive historical stock price data and market trends
 - **AI-Powered Predictions**: Machine learning models providing stock price predictions based on historical data
@@ -17,7 +26,7 @@ StockSage is an AI-powered stock analysis platform specifically designed for the
 - **Sector-wise Analysis**: Filter and analyze stocks by different market sectors
 - **Search & Sort Capabilities**: Easy-to-use interface for finding specific stocks and sorting data
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Frontend
 - React.js
@@ -32,7 +41,7 @@ StockSage is an AI-powered stock analysis platform specifically designed for the
 - Jupyter Notebook / Google Colab
 - Prediction models using historical data
 
-## 🖥️ Installation
+## Installation
 
 1. Clone the repository:
 ```bash
@@ -87,7 +96,7 @@ cd backend
 python app.py
 ```
 
-## 🌟 Key Features
+## Key Features
 
 1. **Market Analysis**
    - Historical data analysis
@@ -105,22 +114,22 @@ python app.py
    - Secure user authentication
    - Data protection measures
 
-## 💡 Why StockSage?
+## Why StockSage?
 
 - **User-Friendly**: Intuitive interface designed for both novice and experienced investors
 - **Comprehensive Data**: Complete coverage of the Nepali stock market
 - **Data-Driven Insights**: Analysis based on historical market data
 - **Secure Platform**: Enterprise-grade security measures
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👥 Support
+## Support
 
 For support, please open an issue in the GitHub repository.
 

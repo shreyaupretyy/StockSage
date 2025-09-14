@@ -1,0 +1,31 @@
+Stock: NABIL
+Generated on: 2025-04-18 15:54:51
+User: shreyaupretyy
+
+Technical Indicators Analysis:
+
+Correlations with Close Price:
+PSAR: 0.9889
+ATR: 0.8109
+MACD_Histogram: -0.0094
+ROC: -0.0128
+RSI: -0.0198
+ADX: -0.0296
++DI: -0.0557
+-DI: -0.0617
+SO_%K: -0.0727
+SO_%D: -0.0732
+MFI: -0.0913
+CMF: -0.4314
+
+Final Model Performance:
+
+Training Metrics:
+MAE: 0.0082
+RMSE: 0.0113
+MAPE: 7.28%
+
+Validation Metrics:
+MAE: 0.0328
+RMSE: 0.0427
+MAPE: 5.73%

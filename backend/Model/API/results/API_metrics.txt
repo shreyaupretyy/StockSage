@@ -1,0 +1,31 @@
+Stock: API
+Generated on: 2025-04-17 14:07:00
+User: shreyaupretyy
+
+Technical Indicators Analysis:
+
+Correlations with Close Price:
+PSAR: 0.9631
+ATR: 0.8584
++DI: 0.2104
+ROC: 0.2000
+RSI: 0.1557
+SO_%D: 0.1451
+SO_%K: 0.1288
+-DI: 0.0808
+MFI: 0.0332
+ADX: -0.0096
+MACD_Histogram: -0.0187
+CMF: -0.3190
+
+Final Model Performance:
+
+Training Metrics:
+MAE: 0.0124
+RMSE: 0.0171
+MAPE: 10.95%
+
+Validation Metrics:
+MAE: 0.0231
+RMSE: 0.0337
+MAPE: 5.00%
